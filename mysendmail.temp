@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+import argparse
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+from email.utils import formatdate
+
+def send(subject, text):
+  subject = "RaspberryPi: " + subject
+
+  # thu mail IMAP(SSL)方式
+  username = "USERNAME"
+  password = "PASSWORD"
+
+  sender_host = "mails.tsinghua.edu.cn"
+  sender_port = "465"
+
+
+  sender = "zrx21@mails.tsinghua.edu.cn"
+  receiver = "zrx21@mails.tsinghua.edu.cn"
+
+
+  encoding = "utf-8"
+  mail = MIMEText(text.encode(encoding), "plain", encoding)
+  mail["Subject"] = Header(subject, encoding)
+  mail["From"] = sender
+  mail["To"] = receiver
+  mail["Date"] = formatdate()
+
+
+  try:
+    smtp = smtplib.SMTP_SSL(sender_host, sender_port)
+    smtp.ehlo()
+    smtp.login(username, password)
+    smtp.sendmail(sender, receiver, mail.as_string())
+    smtp.close()
+    print("Send OK!")
+  except Exception as e:
+    print("Send Err:", e)
+
+if __name__ == "__main__":
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-s", "--subject", type=str, help="subject", required=True)
+  parser.add_argument("-t", "--text", type=str, help="text", required=True)
+  args = parser.parse_args()
+  
+  send(args.subject, args.text)
