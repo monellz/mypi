@@ -16,8 +16,8 @@ def send(subject, text):
   sender_port = "465"
 
 
-  sender = "zrx21@mails.tsinghua.edu.cn"
-  receiver = "zrx21@mails.tsinghua.edu.cn"
+  sender = "USERNAME"
+  receiver = "USERNAME"
 
 
   encoding = "utf-8"
