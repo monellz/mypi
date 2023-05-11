@@ -15,4 +15,4 @@ crontab -l > conf
 echo '@reboot sleep 10 && /usr/sbin/mysendmail -s "current ip" -t "$(dig @resolver4.opendns.com myip.opendns.com +short)" > /tmp/mysendmail 2>&1' >> conf && crontab conf && rm -f conf
 
 # send now
-mysendmail -s "current ip" -t "$(dig @resolver4.opendns.com myip.opendns.com +short)
+mysendmail -s "current ip" -t "$(dig @resolver4.opendns.com myip.opendns.com +short)"
