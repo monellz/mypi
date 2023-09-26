@@ -8,3 +8,7 @@ for tzone in /sys/class/thermal/thermal_zone*; do
     echo "CPU$tzone_num temperature: $temp°C"
   fi
 done
+
+
+# only for raspberrypi
+vcgencmd measure_temp
