@@ -16,22 +16,22 @@ def send(subject, text):
   sender_port = "465"
 
 
-  sender = "USERNAME"
-  receiver = "USERNAME"
+  sender = f"{username}@{sender_host}"
+  receiver = f"{username}@{sender_host}"
 
 
   encoding = "utf-8"
   mail = MIMEText(text.encode(encoding), "plain", encoding)
   mail["Subject"] = Header(subject, encoding)
-  mail["From"] = sender
-  mail["To"] = receiver
+  mail["From"] = username
+  mail["To"] = username
   mail["Date"] = formatdate()
 
 
   try:
     smtp = smtplib.SMTP_SSL(sender_host, sender_port)
     smtp.ehlo()
-    smtp.login(username, password)
+    smtp.login(sender, password)
     smtp.sendmail(sender, receiver, mail.as_string())
     smtp.close()
     print("Send OK!")
