@@ -23,8 +23,8 @@ def send(subject, text):
   encoding = "utf-8"
   mail = MIMEText(text.encode(encoding), "plain", encoding)
   mail["Subject"] = Header(subject, encoding)
-  mail["From"] = username
-  mail["To"] = username
+  mail["From"] = sender
+  mail["To"] = receiver
   mail["Date"] = formatdate()
 
 

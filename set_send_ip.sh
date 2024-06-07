@@ -12,7 +12,12 @@ sudo mv mysendmail /usr/sbin/mysendmail
 sudo chmod 700 /usr/sbin/mysendmail
 
 crontab -l > conf
-echo '@reboot sleep 10 && /usr/sbin/mysendmail -s "current ip" -t "$(dig @resolver4.opendns.com myip.opendns.com +short)" > /tmp/mysendmail 2>&1' >> conf && crontab conf && rm -f conf
+sending_cmd='@reboot sleep 10 && /usr/sbin/mysendmail -s "current ip" -t "$(dig @resolver4.opendns.com myip.opendns.com +short)" > /tmp/mysendmail 2>&1'
+if [ `grep -c "${sending_cmd}" conf` -ne '0' ]; then
+    echo "crontab has contained sending_cmd"
+else
+    echo $sending_cmd >> conf && crontab conf && rm -f conf
+fi
 
 # send now
 mysendmail -s "current ip" -t "$(dig @resolver4.opendns.com myip.opendns.com +short)"
