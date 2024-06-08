@@ -7,5 +7,7 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y vim git python3-pip tree
 
+sudo apt install iperf3
+
 # for dig
 sudo apt install -y dnsutils

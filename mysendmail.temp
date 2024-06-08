@@ -4,6 +4,9 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 from email.utils import formatdate
+import logging as log
+
+log.basicConfig(filename='LOGFILE', level=log.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def send(subject, text):
   subject = "RaspberryPi: " + subject
@@ -34,9 +37,11 @@ def send(subject, text):
     smtp.login(sender, password)
     smtp.sendmail(sender, receiver, mail.as_string())
     smtp.close()
-    print("Send OK!")
+    log.info(f"Send OK! (sub=[{subject}], text=[{text}])")
   except Exception as e:
-    print("Send Err:", e)
+    log.error(f"Send Err: {e} (sub=[{subject}], text=[{text}])")
+    exit(-1)
+
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
